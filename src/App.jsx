@@ -71,82 +71,87 @@ const SEED_NOTES = [
 ]
 
 // ==================== THEMES ====================
+// Refined, professional color palettes
 const THEMES = {
   cosmic: {
     name: 'COSMIC',
-    bg: 'bg-gradient-to-br from-[#0a0014] via-[#1a0033] to-[#0d0020]',
-    orb1: 'bg-violet-600/30',
-    orb2: 'bg-pink-500/20',
-    orb3: 'bg-cyan-500/20',
-    sidebar: 'bg-black/40',
-    card: 'bg-white/5',
-    cardHover: 'hover:bg-white/10',
-    text: 'text-white',
-    textMuted: 'text-white/60',
+    bg: 'bg-[#0a0612]',
+    orb1: 'bg-violet-600/20',
+    orb2: 'bg-purple-500/15',
+    orb3: 'bg-indigo-500/10',
+    sidebar: 'bg-[#0d0820]/80',
+    card: 'bg-white/[0.03]',
+    cardHover: 'hover:bg-white/[0.08]',
+    text: 'text-slate-100',
+    textMuted: 'text-slate-400',
     accent: 'text-violet-400',
-    accentGlow: 'shadow-[0_0_20px_rgba(167,139,250,0.4)]',
-    border: 'border-white/10',
-    input: 'bg-white/5 border-white/10',
-    activeNav: 'bg-white/10 border-l-violet-400',
-    fab: 'bg-gradient-to-r from-violet-600 to-pink-600',
-    searchGlow: 'focus:shadow-[0_0_20px_rgba(167,139,250,0.5)]'
+    accentGlow: 'shadow-[0_0_15px_rgba(139,92,246,0.3)]',
+    border: 'border-white/8',
+    input: 'bg-white/[0.03] border-white/10',
+    activeNav: 'bg-violet-500/10 border-l-violet-400',
+    fab: 'bg-violet-600 hover:bg-violet-500',
+    searchGlow: 'focus:shadow-[0_0_20px_rgba(139,92,246,0.3)]',
+    gradient: 'from-violet-600/20 via-purple-600/10 to-indigo-600/5'
   },
   aurora: {
     name: 'AURORA',
-    bg: 'bg-gradient-to-br from-[#001a0d] via-[#00261a] to-[#001510]',
-    orb1: 'bg-emerald-600/30',
-    orb2: 'bg-teal-500/20',
-    orb3: 'bg-lime-500/20',
-    sidebar: 'bg-black/40',
-    card: 'bg-white/5',
-    cardHover: 'hover:bg-white/10',
-    text: 'text-white',
-    textMuted: 'text-white/60',
+    bg: 'bg-[#050d08]',
+    orb1: 'bg-emerald-600/20',
+    orb2: 'bg-teal-500/15',
+    orb3: 'bg-green-500/10',
+    sidebar: 'bg-[#061210]/80',
+    card: 'bg-white/[0.03]',
+    cardHover: 'hover:bg-white/[0.08]',
+    text: 'text-slate-100',
+    textMuted: 'text-slate-400',
     accent: 'text-emerald-400',
-    accentGlow: 'shadow-[0_0_20px_rgba(52,211,153,0.4)]',
-    border: 'border-white/10',
-    input: 'bg-white/5 border-white/10',
-    activeNav: 'bg-white/10 border-l-emerald-400',
-    fab: 'bg-gradient-to-r from-emerald-600 to-teal-600',
-    searchGlow: 'focus:shadow-[0_0_20px_rgba(52,211,153,0.5)]'
+    accentGlow: 'shadow-[0_0_15px_rgba(52,211,153,0.3)]',
+    border: 'border-white/8',
+    input: 'bg-white/[0.03] border-white/10',
+    activeNav: 'bg-emerald-500/10 border-l-emerald-400',
+    fab: 'bg-emerald-600 hover:bg-emerald-500',
+    searchGlow: 'focus:shadow-[0_0_20px_rgba(52,211,153,0.3)]',
+    gradient: 'from-emerald-600/20 via-teal-600/10 to-green-600/5'
   },
   obsidian: {
     name: 'OBSIDIAN',
-    bg: 'bg-gradient-to-br from-[#0a0a0a] via-[#1a0a00] to-[#0d0500]',
-    orb1: 'bg-orange-600/30',
-    orb2: 'bg-amber-500/20',
-    orb3: 'bg-red-500/20',
-    sidebar: 'bg-black/50',
-    card: 'bg-white/5',
-    cardHover: 'hover:bg-white/10',
-    text: 'text-white',
-    textMuted: 'text-white/60',
-    accent: 'text-orange-400',
-    accentGlow: 'shadow-[0_0_20px_rgba(251,146,60,0.4)]',
-    border: 'border-white/10',
-    input: 'bg-white/5 border-white/10',
-    activeNav: 'bg-white/10 border-l-orange-400',
-    fab: 'bg-gradient-to-r from-orange-600 to-red-600',
-    searchGlow: 'focus:shadow-[0_0_20px_rgba(251,146,60,0.5)]'
+    bg: 'bg-[#0a0806]',
+    orb1: 'bg-amber-600/20',
+    orb2: 'bg-orange-500/15',
+    orb3: 'bg-red-500/10',
+    sidebar: 'bg-[#0c0908]/80',
+    card: 'bg-white/[0.03]',
+    cardHover: 'hover:bg-white/[0.08]',
+    text: 'text-slate-100',
+    textMuted: 'text-slate-400',
+    accent: 'text-amber-400',
+    accentGlow: 'shadow-[0_0_15px_rgba(251,191,36,0.3)]',
+    border: 'border-white/8',
+    input: 'bg-white/[0.03] border-white/10',
+    activeNav: 'bg-amber-500/10 border-l-amber-400',
+    fab: 'bg-amber-600 hover:bg-amber-500',
+    searchGlow: 'focus:shadow-[0_0_20px_rgba(251,191,36,0.3)]',
+    gradient: 'from-amber-600/20 via-orange-600/10 to-red-600/5'
   },
   glacial: {
     name: 'GLACIAL',
-    bg: 'bg-gradient-to-br from-[#f8fafc] via-[#e2e8f0] to-[#cbd5e1]',
-    orb1: 'bg-blue-600/20',
-    orb2: 'bg-violet-500/15',
-    orb3: 'bg-sky-500/15',
-    sidebar: 'bg-white/60',
-    card: 'bg-white/70',
-    cardHover: 'hover:bg-white/90',
+    bg: 'bg-slate-50',
+    orb1: 'bg-blue-600/10',
+    orb2: 'bg-indigo-500/8',
+    orb3: 'bg-sky-500/8',
+    sidebar: 'bg-white/80',
+    card: 'bg-white/60',
+    cardHover: 'hover:bg-white/80',
     text: 'text-slate-800',
-    textMuted: 'text-slate-600',
+    textMuted: 'text-slate-500',
     accent: 'text-blue-600',
-    accentGlow: 'shadow-[0_0_20px_rgba(37,99,235,0.3)]',
+    accentGlow: 'shadow-[0_0_15px_rgba(37,99,235,0.2)]',
     border: 'border-slate-200',
     input: 'bg-white/80 border-slate-200',
     activeNav: 'bg-blue-50 border-l-blue-600',
-    fab: 'bg-gradient-to-r from-blue-600 to-violet-600',
-    searchGlow: 'focus:shadow-[0_0_20px_rgba(37,99,235,0.3)]'
+    fab: 'bg-blue-600 hover:bg-blue-500',
+    searchGlow: 'focus:shadow-[0_0_20px_rgba(37,99,235,0.2)]',
+    gradient: 'from-blue-600/5 via-indigo-600/3 to-sky-600/3'
   }
 }
 
@@ -617,33 +622,19 @@ export default function App() {
 
   // Render
   return (
-    <div className={`${currentTheme.bg} ${currentTheme.text} h-screen w-screen overflow-hidden font-['Raleway'] relative animate-gradient`}>
-      {/* Background Orbs */}
-      <div className={`fixed inset-0 pointer-events-none ${currentTheme.orb1} blur-[120px] rounded-full animate-float-1`} style={{ top: '10%', left: '10%', width: '500px', height: '500px' }} />
-      <div className={`fixed inset-0 pointer-events-none ${currentTheme.orb2} blur-[100px] rounded-full animate-float-2`} style={{ bottom: '20%', right: '10%', width: '400px', height: '400px' }} />
-      <div className={`fixed inset-0 pointer-events-none ${currentTheme.orb3} blur-[80px] rounded-full animate-float-3`} style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '300px', height: '300px' }} />
+    <div className={`${currentTheme.bg} h-screen w-screen overflow-hidden font-['Raleway'] relative`}>
+      {/* Subtle Background Gradient */}
+      <div className={`fixed inset-0 bg-gradient-to-br ${currentTheme.gradient} opacity-50`} />
       
-      {/* Noise Overlay */}
-      <div className="fixed inset-0 pointer-events-none opacity-[0.03] mix-blend-overlay" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")` }} />
+      {/* Background Orbs - More Subtle */}
+      <div className={`fixed inset-0 pointer-events-none ${currentTheme.orb1} blur-[150px] rounded-full animate-float-1`} style={{ top: '5%', left: '5%', width: '600px', height: '600px', opacity: 0.5 }} />
+      <div className={`fixed inset-0 pointer-events-none ${currentTheme.orb2} blur-[120px] rounded-full animate-float-2`} style={{ bottom: '10%', right: '10%', width: '500px', height: '500px', opacity: 0.4 }} />
       
       {/* Particle Canvas */}
-      <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none" style={{ zIndex: 1 }} />
+      <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none" style={{ zIndex: 1, opacity: 0.6 }} />
       
-      {/* Custom Cursor */}
-      <div 
-        className="fixed pointer-events-none z-50 rounded-full transition-transform duration-75"
-        style={{
-          left: mousePos.x - 8,
-          top: mousePos.y - 8,
-          width: 16,
-          height: 16,
-          background: theme === 'glacial' ? 'rgba(37, 99, 235, 0.5)' : 'rgba(167, 139, 250, 0.5)',
-          boxShadow: `0 0 20px ${theme === 'glacial' ? 'rgba(37, 99, 235, 0.8)' : 'rgba(167, 139, 250, 0.8)'}`,
-        }}
-      />
-
       {/* Main Layout */}
-      <div className="flex h-full relative z-10" style={{ fontFamily: 'Raleway, sans-serif' }}>
+      <div className={`flex h-full relative z-10 ${currentTheme.text}`} style={{ fontFamily: 'Raleway, sans-serif' }}>
         {/* LEFT SIDEBAR - Desktop */}
         <div className={`${currentTheme.sidebar} backdrop-blur-xl border-r ${currentTheme.border} flex-col ${sidebarCollapsed ? 'w-16' : 'w-64'} transition-all duration-300 animate-slide-in-left hidden md:flex`}>
           {/* Logo */}
@@ -786,19 +777,21 @@ export default function App() {
               <input
                 ref={searchInputRef}
                 type="text"
-                placeholder="Search notes... (⌘K)"
+                placeholder="Search notes..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className={`flex-1 px-4 py-2 rounded-lg ${currentTheme.input} ${currentTheme.text} placeholder:text-white/40 focus:outline-none transition-all ${currentTheme.searchGlow}`}
+                className={`flex-1 px-4 py-2 rounded-lg ${currentTheme.input} ${currentTheme.text} placeholder:text-slate-400 focus:outline-none transition-all ${currentTheme.searchGlow}`}
               />
               {!isMobile && (
-              <div className="flex gap-1 bg-white/5 rounded-lg p-1">
+              <div className={`flex gap-1 ${theme === 'glacial' ? 'bg-slate-200' : 'bg-white/[0.05]'} rounded-lg p-1`}>
                 {['newest', 'oldest', 'alpha', 'longest'].map(sort => (
                   <button
                     key={sort}
                     onClick={() => setSortBy(sort)}
                     className={`px-3 py-1 rounded text-xs transition-all ${
-                      sortBy === sort ? 'bg-white/20 text-white' : 'text-white/60 hover:text-white'
+                      sortBy === sort 
+                        ? (theme === 'glacial' ? 'bg-slate-600 text-white' : 'bg-white/20 text-white') 
+                        : (theme === 'glacial' ? 'text-slate-600 hover:text-slate-800' : 'text-white/60 hover:text-white')
                     }`}
                   >
                     {sort.charAt(0).toUpperCase() + sort.slice(1)}
