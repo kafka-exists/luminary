@@ -236,6 +236,9 @@ export default function App() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
   const [deletingNote, setDeletingNote] = useState(null)
+  const [isMobile, setIsMobile] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [isMobileView, setIsMobileView] = useState(false) // 'notes' | 'editor' | null
 
   const canvasRef = useRef(null)
   const canvasCtx = useRef(null)
@@ -384,10 +387,25 @@ export default function App() {
         setSelectedNote(null)
         setShowAskInput(false)
         setAiResponse('')
+        if (isMobile) setIsMobileView(false)
       }
     }
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [isMobile])
+
+  // Mobile detection
+  useEffect(() => {
+    const checkMobile = () => {
+      const mobile = window.innerWidth < 768
+      setIsMobile(mobile)
+      if (mobile) {
+        setSidebarCollapsed(true)
+      }
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
   // Filter and sort notes
@@ -626,8 +644,8 @@ export default function App() {
 
       {/* Main Layout */}
       <div className="flex h-full relative z-10" style={{ fontFamily: 'Raleway, sans-serif' }}>
-        {/* LEFT SIDEBAR */}
-        <div className={`${currentTheme.sidebar} backdrop-blur-xl border-r ${currentTheme.border} flex flex-col ${sidebarCollapsed ? 'w-16' : 'w-64'} transition-all duration-300 animate-slide-in-left`}>
+        {/* LEFT SIDEBAR - Desktop */}
+        <div className={`${currentTheme.sidebar} backdrop-blur-xl border-r ${currentTheme.border} flex-col ${sidebarCollapsed ? 'w-16' : 'w-64'} transition-all duration-300 animate-slide-in-left hidden md:flex`}>
           {/* Logo */}
           <div className={`p-4 border-b ${currentTheme.border} flex items-center gap-3`}>
             <div className={`w-10 h-10 rounded-xl ${currentTheme.fab} flex items-center justify-center text-xl font-['DM_Serif_Display'] ${currentTheme.accentGlow}`}>
@@ -730,20 +748,41 @@ export default function App() {
             </div>
           )}
 
-          {/* Collapse Toggle */}
+          {/* Collapse Toggle - Desktop only */}
+          {!isMobile && (
           <button
             onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
             className={`p-3 border-t ${currentTheme.border} hover:bg-white/10 transition-all`}
           >
             <span className="text-sm">{sidebarCollapsed ? '→' : '←'}</span>
           </button>
+          )}
         </div>
 
         {/* CENTER PANEL */}
         <div className="flex-1 flex flex-col min-w-0">
+          {/* Mobile Header */}
+          {isMobile && (
+            <div className={`p-3 border-b ${currentTheme.border} flex items-center justify-between`}>
+              <button 
+                onClick={() => setMobileMenuOpen(true)}
+                className={`p-2 rounded-lg ${currentTheme.input}`}
+              >
+                ☰
+              </button>
+              <span className={`font-['DM_Serif_Display'] ${currentTheme.text}`}>LUMINARY</span>
+              <button 
+                onClick={createNote}
+                className={`p-2 rounded-lg ${currentTheme.fab} text-white`}
+              >
+                +
+              </button>
+            </div>
+          )}
+
           {/* Top Bar */}
           <div className={`p-4 border-b ${currentTheme.border} backdrop-blur-sm`}>
-            <div className="flex items-center gap-3">
+            <div className={`flex items-center gap-3 ${isMobile ? 'flex-col' : ''}`}>
               <input
                 ref={searchInputRef}
                 type="text"
@@ -752,6 +791,7 @@ export default function App() {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className={`flex-1 px-4 py-2 rounded-lg ${currentTheme.input} ${currentTheme.text} placeholder:text-white/40 focus:outline-none transition-all ${currentTheme.searchGlow}`}
               />
+              {!isMobile && (
               <div className="flex gap-1 bg-white/5 rounded-lg p-1">
                 {['newest', 'oldest', 'alpha', 'longest'].map(sort => (
                   <button
@@ -765,6 +805,7 @@ export default function App() {
                   </button>
                 ))}
               </div>
+              )}
             </div>
           </div>
 
@@ -922,13 +963,15 @@ export default function App() {
         {/* RIGHT PANEL */}
         {selectedNote && view === 'notes' && (
           <div 
-            className={`${currentTheme.sidebar} backdrop-blur-xl border-l ${currentTheme.border} flex flex-col animate-slide-in-bottom`}
-            style={{ width: rightPanelWidth }}
+            className={`${currentTheme.sidebar} backdrop-blur-xl border-l ${currentTheme.border} flex flex-col animate-slide-in-bottom ${
+              isMobile ? 'fixed inset-0 z-30 w-full' : ''
+            }`}
+            style={isMobile ? {} : { width: rightPanelWidth }}
           >
             {/* Close Button */}
             <button
               onClick={() => setSelectedNote(null)}
-              className="absolute top-4 right-4 w-8 h-8 rounded-full hover:bg-white/10 flex items-center justify-center text-lg"
+              className="absolute top-4 right-4 w-8 h-8 rounded-full hover:bg-white/10 flex items-center justify-center text-lg z-10"
             >
               ×
             </button>
@@ -1082,6 +1125,112 @@ export default function App() {
           </div>
         )}
       </div>
+
+      {/* Mobile Sidebar Overlay */}
+      {isMobile && mobileMenuOpen && (
+        <div className="fixed inset-0 z-40">
+          {/* Backdrop */}
+          <div 
+            className="absolute inset-0 bg-black/50"
+            onClick={() => setMobileMenuOpen(false)}
+          />
+          {/* Sidebar */}
+          <div className={`absolute left-0 top-0 bottom-0 ${currentTheme.sidebar} backdrop-blur-xl border-r ${currentTheme.border} w-64 animate-slide-in-left`}>
+            {/* Logo */}
+            <div className={`p-4 border-b ${currentTheme.border} flex items-center justify-between`}>
+              <div className="flex items-center gap-3">
+                <div className={`w-10 h-10 rounded-xl ${currentTheme.fab} flex items-center justify-center text-xl font-['DM_Serif_Display'] ${currentTheme.accentGlow}`}>
+                  L
+                </div>
+                <span className={`text-lg font-['DM_Serif_Display'] ${currentTheme.text}`} style={{ letterSpacing: '0.1em' }}>
+                  LUMINARY
+                </span>
+              </div>
+              <button 
+                onClick={() => setMobileMenuOpen(false)}
+                className="p-2 rounded-lg hover:bg-white/10"
+              >
+                ×
+              </button>
+            </div>
+
+            {/* Navigation */}
+            <nav className="py-4">
+              {[
+                { id: 'all', icon: '📝', label: 'All Notes' },
+                { id: 'starred', icon: '⭐', label: 'Starred' },
+                { id: 'trash', icon: '🗑️', label: 'Trash' },
+                { id: 'chat', icon: '💬', label: 'AI Chat' },
+                { id: 'graph', icon: '🕸️', label: 'Graph View' }
+              ].map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => { 
+                    if (item.id === 'chat') setView('chat')
+                    else if (item.id === 'graph') setView('graph')
+                    else { setActiveFilter(item.id); setView('notes') }
+                    setSelectedNote(null)
+                    setMobileMenuOpen(false)
+                  }}
+                  className={`w-full px-4 py-3 flex items-center gap-3 transition-all border-l-2 ${
+                    activeFilter === item.id && view === 'notes'
+                      ? `${currentTheme.activeNav} ${currentTheme.accent}`
+                      : 'border-transparent hover:bg-white/5'
+                  }`}
+                >
+                  <span className="text-lg">{item.icon}</span>
+                  <span className={currentTheme.textMuted}>{item.label}</span>
+                </button>
+              ))}
+            </nav>
+
+            {/* Tags */}
+            {allTags.length > 0 && (
+              <div className="px-4 pb-4">
+                <div className={`text-xs uppercase tracking-wider ${currentTheme.textMuted} mb-2`}>Tags</div>
+                <div className="flex flex-wrap gap-2">
+                  {allTags.map(tag => (
+                    <button
+                      key={tag}
+                      onClick={() => {
+                        setSelectedTag(selectedTag === tag ? null : tag)
+                        setMobileMenuOpen(false)
+                      }}
+                      className={`px-2 py-1 rounded-full text-xs flex items-center gap-1.5 ${
+                        selectedTag === tag ? 'bg-white/20' : 'hover:bg-white/10'
+                      }`}
+                      style={{ color: getTagColor(tag) }}
+                    >
+                      <span className="w-2 h-2 rounded-full" style={{ backgroundColor: getTagColor(tag) }} />
+                      {tag}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Theme Switcher */}
+            <div className="p-4 border-t border-white/10">
+              <div className={`text-xs uppercase tracking-wider ${currentTheme.textMuted} mb-3`}>Theme</div>
+              <div className="flex gap-2">
+                {Object.keys(THEMES).map(t => (
+                  <button
+                    key={t}
+                    onClick={() => setTheme(t)}
+                    className={`w-8 h-8 rounded-full transition-all ${theme === t ? 'ring-2 ring-white ring-offset-2 ring-offset-black' : 'hover:scale-110'}`}
+                    style={{ 
+                      background: t === 'cosmic' ? 'linear-gradient(135deg, #8b5cf6, #ec4899)' :
+                                 t === 'aurora' ? 'linear-gradient(135deg, #10b981, #14b8a6)' :
+                                 t === 'obsidian' ? 'linear-gradient(135deg, #f59e0b, #ef4444)' :
+                                 'linear-gradient(135deg, #3b82f6, #8b5cf6)'
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* CSS Keyframes */}
       <style>{`
